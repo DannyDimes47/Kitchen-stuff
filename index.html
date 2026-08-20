@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tito's Mom's Kitchen</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #fdf8f0;
+      --brown: #4a2c1a;
+      --accent: #c0392b;
+      --gold: #d4a04a;
+      --muted: #888;
+      --card-bg: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--cream);
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(253, 248, 240, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(74, 44, 26, 0.08);
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: var(--brown);
+    }
+
+    .logo span {
+      display: block;
+      margin-top: 5px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: normal;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.88rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #1a1a1a;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-order {
+      background: var(--brown);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-order:hover { background: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(rgba(0,0,0,0.50), rgba(0,0,0,0.50)),
+                  url('images/hero.jpg') center/cover no-repeat;
+      background-color: #3b1f0e;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      max-width: 680px;
+      padding: 0 24px;
+    }
+
+    .eyebrow {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      opacity: 0.8;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      line-height: 1.12;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      font-family: 'Arial', sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      opacity: 0.85;
+      margin-bottom: 38px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--brown);
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-family: 'Arial', sans-serif;
+      font-size: 1.30rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-white:hover { background: var(--gold); color: #fff; }
+
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.65);
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-family: 'Arial', sans-serif;
+      font-size: 1.30rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* ── SECTION WRAPPER ── */
+    .section-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 96px 48px;
+    }
+
+    .section-eyebrow {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+      color: var(--brown);
+      line-height: 1.18;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.97rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 48px;
+    }
+
+    /* ── TABS ── */
+    .tab-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      border-bottom: 2px solid rgba(74,44,26,0.1);
+      padding-bottom: 0;
+    }
+
+    .tab-btn {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tab-btn:hover { color: var(--brown); }
+
+    .tab-btn.active {
+      color: var(--brown);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── MENU LIST ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .menu-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px 20px;
+      background: #fff;
+      border: 1px solid rgba(74,44,26,0.07);
+      border-radius: 10px;
+      margin: 4px;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .menu-item:hover {
+      box-shadow: 0 6px 24px rgba(74,44,26,0.1);
+      transform: translateY(-2px);
+    }
+
+    .menu-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    .menu-item-text h4 {
+      font-size: 0.97rem;
+      color: var(--brown);
+      margin-bottom: 4px;
+    }
+
+    .menu-item-text p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── IMAGE MENU CARD ── */
+    .menu-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(74,44,26,0.09);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 4px;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .menu-card:hover {
+      box-shadow: 0 10px 36px rgba(74,44,26,0.13);
+      transform: translateY(-3px);
+    }
+
+    .menu-card-img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .menu-card-body {
+      padding: 18px 20px 22px;
+    }
+
+    .menu-card-body h4 {
+      font-size: 1rem;
+      color: var(--brown);
+      margin-bottom: 6px;
+    }
+
+    .menu-card-body p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── DELIVERY BAND ── */
+    .delivery-band {
+      background: var(--brown);
+      color: #fff;
+      padding: 80px 48px;
+    }
+
+    .delivery-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .delivery-text .section-title { color: #fff; }
+    .delivery-text .section-sub   { color: rgba(255,255,255,0.6); }
+
+    .delivery-options {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .delivery-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 22px 24px;
+    }
+
+    .option-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .option-text h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .option-text p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+
+    /* ── ORDER ── */
+    .order-section {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 100px 48px;
+    }
+
+    .phone-number {
+      display: block;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: var(--brown);
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-decoration: none;
+      margin: 28px 0 12px;
+      transition: color 0.2s;
+    }
+
+    .phone-number:hover { color: var(--accent); }
+
+    .order-note {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 10px;
+    }
+
+    .text-btn {
+      display: inline-block;
+      margin-top: 32px;
+      background: var(--accent);
+      color: #fff;
+      padding: 15px 38px;
+      border-radius: 8px;
+      font-family: 'Arial', sans-serif;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .text-btn:hover { background: var(--brown); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 44px 24px;
+    }
+
+    footer .foot-name {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    footer .foot-links {
+      margin: 16px 0;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    footer .foot-links a {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer .foot-links a:hover { color: #fff; }
+
+    footer p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 4px;
+    }
+
+    /* ── FADE IN ── */
+    .fade {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    .fade.on { opacity: 1; transform: translateY(0); }
+
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .stagger.on > *:nth-child(1)  { opacity:1; transform:translateY(0); transition-delay:0.00s; }
+    .stagger.on > *:nth-child(2)  { opacity:1; transform:translateY(0); transition-delay:0.07s; }
+    .stagger.on > *:nth-child(3)  { opacity:1; transform:translateY(0); transition-delay:0.14s; }
+    .stagger.on > *:nth-child(4)  { opacity:1; transform:translateY(0); transition-delay:0.21s; }
+    .stagger.on > *:nth-child(5)  { opacity:1; transform:translateY(0); transition-delay:0.28s; }
+    .stagger.on > *:nth-child(6)  { opacity:1; transform:translateY(0); transition-delay:0.35s; }
+    .stagger.on > *:nth-child(7)  { opacity:1; transform:translateY(0); transition-delay:0.42s; }
+    .stagger.on > *:nth-child(8)  { opacity:1; transform:translateY(0); transition-delay:0.49s; }
+    .stagger.on > *:nth-child(9)  { opacity:1; transform:translateY(0); transition-delay:0.56s; }
+    .stagger.on > *:nth-child(10) { opacity:1; transform:translateY(0); transition-delay:0.63s; }
+    .stagger.on > *:nth-child(11) { opacity:1; transform:translateY(0); transition-delay:0.70s; }
+    .stagger.on > *:nth-child(12) { opacity:1; transform:translateY(0); transition-delay:0.77s; }
+    .stagger.on > *:nth-child(13) { opacity:1; transform:translateY(0); transition-delay:0.84s; }
+    .stagger.on > *:nth-child(14) { opacity:1; transform:translateY(0); transition-delay:0.91s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .section-wrap { padding: 72px 24px; }
+      .delivery-band { padding: 64px 24px; }
+      .delivery-inner { grid-template-columns: 1fr; gap: 36px; }
+      .order-section { padding: 72px 24px; }
+      .tab-btn { font-size: 0.75rem; padding: 8px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      Charming Tastee Pot
+      <span>Fresh &middot; Homemade &middot; Made to Order</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#delivery">Delivery</a></li>
+      <li><a href="#order">Order</a></li>
+    </ul>
+    <a href="#order" class="nav-order">Order Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <p class="eyebrow">Homemade &middot; Fresh &middot; Made to Order</p>
+      <h1>Real food, made with love.</h1>
+      <p>Authentic Nigerian home cooking — hearty, fresh, and made to order. Available for pickup or delivery.</p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-white">See the Menu</a>
+        <a href="#order" class="btn-ghost">Text to Order</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <div class="section-wrap" id="menu">
+    <p class="section-eyebrow fade">What's cooking</p>
+    <h2 class="section-title fade">Fresh meals, made to order.</h2>
+    <p class="section-sub fade">Every dish is prepared fresh. Browse by category and text us to place your order.</p>
+
+    <!-- TABS -->
+    <div class="tab-bar fade">
+      <button class="tab-btn active" data-tab="rice">Rice</button>
+      <button class="tab-btn" data-tab="meat">Meat &amp; Poultry</button>
+      <button class="tab-btn" data-tab="fish">Fish</button>
+      <button class="tab-btn" data-tab="soups">Soups &amp; Stews</button>
+      <button class="tab-btn" data-tab="sides">Sides &amp; Snacks</button>
+      <button class="tab-btn" data-tab="specialty">Specialty</button>
+    </div>
+
+    <!-- RICE -->
+    <div class="tab-panel active" id="tab-rice">
+      <div class="menu-list stagger">
+        <div class="menu-card">
+          <img class="menu-card-img" src="images/Jollof Rice.jpeg" alt="Cooler of Jollof Rice" />
+          <div class="menu-card-body">
+            <h4>Cooler of Jollof Rice</h4>
+            <p>Classic party jollof — slow-cooked in a rich tomato and pepper sauce with smoky flavor.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Cooler of Fried Rice</h4>
+            <p>Golden, well-seasoned fried rice loaded with vegetables and savory flavor.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Cooler of Coconut Fried Rice</h4>
+            <p>Fragrant fried rice cooked in coconut milk for a rich, slightly sweet finish.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Cooler of Shrimp Fried Rice</h4>
+            <p>Fried rice tossed with seasoned shrimp — a crowd-pleasing upgrade.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan Asun Jollof Rice</h4>
+            <p>Jollof rice served with smoky, spicy asun goat meat — bold and satisfying.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEAT & POULTRY -->
+    <div class="tab-panel" id="tab-meat">
+      <div class="menu-list stagger">
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Hard Chicken</h4>
+            <p>Firm, well-seasoned chicken pieces — great on its own or over rice.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Soft Chicken</h4>
+            <p>Tender, fall-off-the-bone chicken slow-cooked in savory seasoning.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Sauced Turkey</h4>
+            <p>Juicy turkey in a rich, seasoned tomato and pepper sauce.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Assorted Meat</h4>
+            <p>A generous mix of meats seasoned and cooked to perfection.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Chicken Pepper Soup</h4>
+            <p>Light, aromatic chicken broth with traditional pepper soup spices.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Sauced Goat Meat</h4>
+            <p>Tender goat meat slow-cooked in a deep, spiced tomato sauce.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Beef</h4>
+            <p>Seasoned beef cooked down low and slow for maximum flavor.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Stewed Cow Feet</h4>
+            <p>Slow-braised cow feet in a rich, spiced stew. Tender and deeply savory.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Gizzardodo</h4>
+            <p>Crispy gizzard tossed with fried plantain — a classic Nigerian party combo.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Gizzard Mix Veggies</h4>
+            <p>Seasoned gizzard stir-fried with fresh vegetables.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan Asun Goat Meat</h4>
+            <p>Smoky, spicy grilled goat meat — a bold and fiery favorite.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Nkwobi</h4>
+            <p>Spiced cow foot in a seasoned palm oil sauce — a rich Nigerian delicacy.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Pepper Snail</h4>
+            <p>Tender snails in a bold, peppery sauce. A true delicacy.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Isi Ewu</h4>
+            <p>Spiced goat head cooked in a rich, flavorful palm oil sauce. A classic Igbo dish.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FISH -->
+    <div class="tab-panel" id="tab-fish">
+      <div class="menu-list stagger">
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Fish — Tilapia</h4>
+            <p>Whole tilapia seasoned and cooked in a savory pepper sauce.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Fish — Croaker</h4>
+            <p>Fresh croaker fish prepared with traditional Nigerian seasoning.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOUPS & STEWS -->
+    <div class="tab-panel" id="tab-soups">
+      <div class="menu-list stagger">
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Stew</h4>
+            <p>A rich, slow-simmered tomato and pepper stew. Goes with everything.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Egusi / Vegetable / Onugbu Soup</h4>
+            <p>Hearty ground melon seed soup with leafy greens and assorted protein.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Eforiro</h4>
+            <p>Sautéed spinach-based stew with assorted meat in a rich, flavorful sauce.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Beans Porridge</h4>
+            <p>Soft, well-seasoned beans cooked down into a hearty, comforting porridge.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Yam Porridge</h4>
+            <p>Tender yam pieces cooked in a savory, slightly spiced pepper base.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDES & SNACKS -->
+    <div class="tab-panel" id="tab-sides">
+      <div class="menu-list stagger">
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Plantain</h4>
+            <p>Sweet, golden-fried ripe plantain — a perfect side for any dish.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Yam &amp; Vegetables</h4>
+            <p>Boiled yam paired with sautéed fresh vegetables.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Vegetables with Onion &amp; Beef Strips</h4>
+            <p>Stir-fried vegetables tossed with onions and seasoned beef strips.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Nigerian Salad</h4>
+            <p>A classic Nigerian-style salad with fresh ingredients and creamy dressing.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Moimoi</h4>
+            <p>Steamed bean pudding seasoned with peppers, onions, and spices. Sold individually.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pounded Yam</h4>
+            <p>Smooth, stretchy pounded yam — the perfect companion to any Nigerian soup. Sold individually.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Akara</h4>
+            <p>Crispy, deep-fried black-eyed pea fritters. A beloved Nigerian breakfast snack. Sold individually.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPECIALTY -->
+    <div class="tab-panel" id="tab-specialty">
+      <div class="menu-list stagger">
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Abacha</h4>
+            <p>African salad made with dried shredded cassava, palm oil, ugba, and spices.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan of Ugba</h4>
+            <p>Shredded oil bean salad seasoned with crayfish, pepper, and palm oil. A rich Igbo delicacy.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-dot"></div>
+          <div class="menu-item-text">
+            <h4>Pan Chicken with Veg (Agworoagwo)</h4>
+            <p>Chicken cooked with a medley of mixed vegetables in seasoned sauce.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-family:'Arial',sans-serif; font-size:0.82rem; color:var(--muted); margin-top:40px; text-align:center;" class="fade">
+      Menu is updated regularly — text us to ask what's available today.
+    </p>
+  </div>
+
+  <!-- DELIVERY BAND -->
+  <div class="delivery-band" id="delivery">
+    <div class="delivery-inner">
+      <div class="delivery-text">
+        <p class="section-eyebrow fade" style="color:rgba(255,255,255,0.5);">How it works</p>
+        <h2 class="section-title fade">Pickup or delivery — your choice.</h2>
+        <p class="section-sub fade">Just send a text to place your order. We'll confirm and arrange the rest.</p>
+      </div>
+      <div class="delivery-options stagger">
+        <div class="delivery-option">
+          <div class="option-icon">&#127968;</div>
+          <div class="option-text">
+            <h4>Pickup</h4>
+            <p>Place your order by text, we'll let you know when it's ready, and you come grab it.</p>
+          </div>
+        </div>
+        <div class="delivery-option">
+          <div class="option-icon">&#128665;</div>
+          <div class="option-text">
+            <h4>Delivery</h4>
+            <p>We deliver to your door. Text us your address and we'll confirm if your area is covered.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER -->
+  <div class="order-section" id="order">
+    <p class="section-eyebrow fade">Ready to eat?</p>
+    <h2 class="section-title fade" style="max-width:100%;">Ordering is simple.</h2>
+    <p class="section-sub fade" style="max-width:100%; margin-bottom:0;">
+      Send a text with your order, your name, and whether you want pickup or delivery. That's it.
+    </p>
+    <a href="tel:+13476458969" class="phone-number fade">(347)-(645)-(8969)</a>
+    <p class="order-note fade">Text or call &mdash; we usually respond within a few minutes.</p>
+    <a href="sms:+13476458969" class="text-btn fade">Tap to Text Us</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-name">Charming Tastee Pot</div>
+    <div class="foot-links">
+      <a href="#menu">Menu</a>
+      <a href="#delivery">Delivery</a>
+      <a href="#order">Order</a>
+    </div>
+    <p>&copy; 2026 Charming Tastee Pot. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Tabs
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = document.getElementById('tab-' + btn.dataset.tab);
+        panel.classList.add('active');
+        // trigger stagger animation on newly shown panel
+        const stagger = panel.querySelector('.stagger');
+        if (stagger) {
+          stagger.classList.remove('on');
+          void stagger.offsetWidth;
+          stagger.classList.add('on');
+        }
+      });
+    });
+
+    // Fade-in on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('on');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade, .stagger').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
